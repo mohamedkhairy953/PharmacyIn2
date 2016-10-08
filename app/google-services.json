@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "141983995421",
+    "firebase_url": "https://pharmacyin-89080.firebaseio.com",
+    "project_id": "pharmacyin-89080",
+    "storage_bucket": "pharmacyin-89080.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141983995421:android:7be227d3d3a1aff4",
+        "android_client_info": {
+          "package_name": "com.example.moham.navdrawerexample1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141983995421-uiqjq8mncdkvl1si3l7tr6r6p6kmsg5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWq2Tt4jm070Y2mwpbLd3ruchEwQNDbO0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
