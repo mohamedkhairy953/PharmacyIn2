@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:hint="@string/enter_your_passord"
-            android:inputType="textPassword" />
+             />
 
         <Button
             android:id="@+id/button_register"
