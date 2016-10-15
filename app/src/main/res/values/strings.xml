@@ -16,4 +16,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="signup_as_user">Signup as user</string>
     <string name="signup_as_doctor">Signup as doctor</string>
+    <string name="press_on_imageview">press on imageView to change your photo</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="user_name">User Name</string>
+    <string name="phone">Phone</string>
+    <string name="store_gps_location">We Will Store Your Current Gps Location</string>
+    <string name="save_and_finish">Save and Finish</string>
 </resources>

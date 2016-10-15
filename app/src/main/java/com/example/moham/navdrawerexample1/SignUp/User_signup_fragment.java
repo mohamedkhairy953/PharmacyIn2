@@ -100,7 +100,7 @@ public class User_signup_fragment extends Fragment implements View.OnClickListen
                 if (task.isSuccessful()) {
                    switchToFragment(new Information_Field_fragment());
                 } else {
-                    Toast.makeText(getActivity(), task.getResult().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), task.getException().toString(), Toast.LENGTH_SHORT).show();
 
                 }
             }
