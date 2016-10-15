@@ -4,50 +4,59 @@ package com.example.moham.navdrawerexample1.SignUp;
  * Created by moham on 10/15/2016.
  */
 
-class Inf_Field_ClassModel {
+public class Inf_Field_ClassModel {
     private byte[] image;
     private String Fname;
     private String Lname;
     private String Uname;
     private String Phone;
+    private String Location;
 
-    byte[] getImage() {
+    public String getLocation() {
+        return Location;
+    }
+
+    void setLocation(String location) {
+        Location = location;
+    }
+
+    public byte[] getImage() {
         return image;
     }
 
-    void setImage(byte[] image) {
+     void setImage(byte[] image) {
         this.image = image;
     }
 
-    String getFname() {
+    public String getFname() {
         return Fname;
     }
 
-    void setFname(String fname) {
+     void setFname(String fname) {
         Fname = fname;
     }
 
-    String getLname() {
+    public String getLname() {
         return Lname;
     }
 
-    void setLname(String lname) {
+     void setLname(String lname) {
         Lname = lname;
     }
 
-    String getUname() {
+    public String getUname() {
         return Uname;
     }
 
-    void setUname(String uname) {
+     void setUname(String uname) {
         Uname = uname;
     }
 
-    String getPhone() {
+    public String getPhone() {
         return Phone;
     }
 
-    void setPhone(String phone) {
+     void setPhone(String phone) {
         Phone = phone;
     }
 }
