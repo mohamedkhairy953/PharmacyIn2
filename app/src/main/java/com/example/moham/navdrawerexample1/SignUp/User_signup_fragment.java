@@ -22,6 +22,7 @@ import com.example.moham.navdrawerexample1.LoginActivity;
 import com.example.moham.navdrawerexample1.MainActivity;
 import com.example.moham.navdrawerexample1.NavDrawer_Activity;
 import com.example.moham.navdrawerexample1.R;
+import com.example.moham.navdrawerexample1.Utility;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -49,7 +50,9 @@ public class User_signup_fragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         firebaseAuth = FirebaseAuth.getInstance();
-
+        if (Utility.if_someone_loggedin()) {
+            startActivity(new Intent(getActivity(), NavDrawer_Activity.class));
+        }
         View view_userSignUp = inflater.inflate(R.layout.fragment_user_signup, container, false);
         initialize_components(view_userSignUp);
         return view_userSignUp;
@@ -92,26 +95,39 @@ public class User_signup_fragment extends Fragment implements View.OnClickListen
         }
         progressDialog.setMessage("Registeration mail ...");
         progressDialog.show();
-
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialog.dismiss();
                 if (task.isSuccessful()) {
-                   switchToFragment(new Information_Field_fragment());
+                    Inf_Field_ClassModel model = new Inf_Field_ClassModel(); // initially create user object in database
+                    model.setUid(firebaseAuth.getCurrentUser().getUid());
+                    try {
+                        model.setLocation("not provided");
+                    } catch (Exception e) {
+
+                    }
+                    Utility.addModelToFirebase(model, getActivity());
+                    switchToFragment(new Information_Field_fragment());
                 } else {
-                    Toast.makeText(getActivity(), task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
     }
+
     void switchToFragment(Fragment fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container_signup, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(Utility.FRAG_NUM_key, Utility.USER_SIGNUP_FG_NUM);
+
     }
 }
 

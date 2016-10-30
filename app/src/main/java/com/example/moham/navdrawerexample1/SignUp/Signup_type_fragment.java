@@ -1,7 +1,9 @@
 package com.example.moham.navdrawerexample1.SignUp;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.moham.navdrawerexample1.LoginActivity;
 import com.example.moham.navdrawerexample1.MainActivity;
@@ -25,6 +28,7 @@ public class Signup_type_fragment extends Fragment implements View.OnClickListen
 
     Button signup_as_doc, signup_as_user;
     TextView to_login;
+    private LocationManager locationManager;
 
     public Signup_type_fragment() {
         // Required empty public constructor
@@ -37,10 +41,18 @@ public class Signup_type_fragment extends Fragment implements View.OnClickListen
 
         View view_signuptype = inflater.inflate(R.layout.fragment_signup_type, container, false);
         initialize_components(view_signuptype);
-        if (Utility.if_someone_loggedin()) {
-            startActivity(new Intent(getActivity(), NavDrawer_Activity.class));
-        }
+        Toast.makeText(getActivity(), "PGps", Toast.LENGTH_LONG).show();
 
+        if (Utility.if_someone_loggedin()) {
+
+            startActivity(new Intent(getActivity(), NavDrawer_Activity.class));
+            getActivity().finish();
+        } else {
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                Toast.makeText(getActivity(), "Please open your Gps", Toast.LENGTH_LONG).show();
+            }
+        }
         return view_signuptype;
     }
 
@@ -73,7 +85,10 @@ public class Signup_type_fragment extends Fragment implements View.OnClickListen
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container_signup, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(Utility.FRAG_NUM_key, Utility.SIGNUP_TYP_FG_NUM);
     }
 }

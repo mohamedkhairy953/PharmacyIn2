@@ -86,7 +86,6 @@ public class NavDrawer_Activity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
             firebaseAuth.signOut();
-            finish();
             startActivity(new Intent(NavDrawer_Activity.this, LoginActivity.class));
         }
 
