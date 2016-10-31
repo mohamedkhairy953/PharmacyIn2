@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.moham.navdrawerexample1.MainActivity;
 import com.example.moham.navdrawerexample1.R;
 import com.example.moham.navdrawerexample1.Utility;
 import com.google.firebase.auth.FirebaseAuth;
@@ -98,10 +99,15 @@ public class Information_Field_fragment extends Fragment implements View.OnClick
         switch (v.getId()) {
             case R.id.saveButtonInfField:
 
-                getloc();
-                setMyModelAttributes();
-                Utility.addModelToFirebase(myModel, getActivity());
-                Toast.makeText(getActivity(), myModel.getLocation(), Toast.LENGTH_SHORT).show();
+                try {
+                    getloc();
+                    setMyModelAttributes();
+                    Utility.addModelToFirebase(myModel, getActivity());
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    getActivity().finish();
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Location exception", Toast.LENGTH_SHORT).show();
+                }
 
                 break;
             case R.id.img_view_infField:
@@ -130,20 +136,15 @@ public class Information_Field_fragment extends Fragment implements View.OnClick
         }
     }
 
-    private void setMyModelAttributes() {
+    private void setMyModelAttributes() throws InfModelException {
         myModel.setUid(firebaseAuth.getCurrentUser().getUid());
         myModel.setUname(edtxt_Uname.getText().toString().trim());
         myModel.setFname(edtxt_Fname.getText().toString().trim());
         myModel.setPhone(edtxt_phone.getText().toString().trim());
         myModel.setLname(edtxt_Lname.getText().toString().trim());
         myModel.setImageUri(img_uri);
+        myModel.setLocation(location_String);
 
-        try {
-            myModel.setLocation(location_String);
-        } catch (Exception e) {
-            Toast.makeText(getActivity(), "Click again to confirm location", Toast.LENGTH_SHORT).show();
-
-        }
     }
 
     @Override
@@ -172,7 +173,7 @@ public class Information_Field_fragment extends Fragment implements View.OnClick
     }
 
 
-    private void getloc() {
+    private void getloc() throws Exception {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 ||
                 ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -206,14 +207,10 @@ public class Information_Field_fragment extends Fragment implements View.OnClick
                 }
             });
             Location myLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-            try{
+            double longitude = myLocation.getLongitude();
+            double latitude = myLocation.getLatitude();
+            location_String = latitude + "-" + longitude;
 
-                double longitude = myLocation.getLongitude();
-                double latitude = myLocation.getLatitude();
-                location_String = latitude + "-" + longitude;
-            }catch (Exception f){
-                Toast.makeText(getActivity(), "Gps Could not capture your location now ", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
