@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
             // profile activity
-            finish();
+
             startActivity(new Intent(LoginActivity.this, NavDrawer_Activity.class));
         }
         btn_login = (Button) findViewById(R.id.button_login);
@@ -84,8 +84,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialog.dismiss();
                 if (task.isSuccessful()) {
-                    finish();
                     startActivity(new Intent(LoginActivity.this, NavDrawer_Activity.class));
+                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 

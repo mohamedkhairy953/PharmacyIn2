@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.moham.navdrawerexample1.R;
+import com.example.moham.navdrawerexample1.Utility;
 
 
 public class Doctor_signup_fragment extends Fragment {
@@ -46,6 +47,10 @@ public class Doctor_signup_fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_doctor_signup, container, false);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(Utility.FRAG_NUM_key, Utility.DOCTOR_SIGNUP_FG_NUM);
     }
 
 }
