@@ -3,9 +3,12 @@ package com.example.moham.navdrawerexample1;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.Volley;
+import com.example.moham.navdrawerexample1.SignUp.EmailConfirmation.GMailSender;
 import com.example.moham.navdrawerexample1.SignUp.Inf_Field_ClassModel;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,6 +30,7 @@ public class Utility {
     public final static int USER_SIGNUP_FG_NUM = 2;
     public final static int DOCTOR_SIGNUP_FG_NUM = 3;
     public final static int INF_FIELD_FG_NUM = 4;
+    public final static int CONFIRMATION_FG_NUM = 5;
     public static String FRAG_NUM_key = "fg_num";
 
     public static boolean if_someone_loggedin() {
@@ -61,4 +65,14 @@ public class Utility {
             }
         });
     }
+    public static  void sendCofirmation(FirebaseUser user,String code) throws Exception {
+
+            GMailSender sender = new GMailSender("mohamedsallam953@gmail.com", "7386889.youtube");
+            sender.sendMail("Confirm your Email",
+                    "your confirmation code is  "+code,
+                    "mohamedsallam953@gmail.com",
+                    user.getEmail());
+
+    }
+
 }
